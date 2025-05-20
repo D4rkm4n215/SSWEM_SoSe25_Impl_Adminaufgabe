@@ -1,0 +1,15 @@
+Administration
+Aufgabe II – Sichere Datenspeicherung innerhalb eines DBMS
+Richtige und somit sichere Datenspeicherung von sensiblen und schützenswerten
+Informationen. Hierbei sollen folgende Punkte beachtet werden:
+- Die Ver- und Entschlüsselung muss über das DBMS erfolgen (keine lokalen
+Operationen).
+- Alle Spalten mit wichtigen Informationen müssen geschützt werden.
+- Ebenfalls muss die Möglichkeit gegeben sein, sich über einen gesicherten
+Kommunikationskanal (SSL/TLS) mit dem DBMS zu verbinden.
+- Die Umsetzung muss auf einer VM in der BW-Cloud oder im Hochschulnetzwerk
+erfolgen, damit die Nachvollziehbarkeit gewährleistet ist.
+Zur Umsetzung der Ver- und Entschlüsselung wird das PostgreSQL-Modul pg_crypto
+empfohlen. Andere Möglichkeiten, die mindestens denselben Sicherheitsgrad versprechen, sind
+ebenfalls zulässig. Eine Übersicht der Möglichkeiten ist auf der Website von postgresql
+dargestellt (https://www.postgresql.org/docs/current/encryption-options.html).
