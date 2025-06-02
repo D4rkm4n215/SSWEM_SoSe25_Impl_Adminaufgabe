@@ -21,7 +21,8 @@ async function login() {
     }
 
     try {
-        const res = await fetch("http://130.61.19.194:8080/api/register?token=" + token, {
+        const encodedToken = encodeURIComponent(token);
+        const res = await fetch("http://130.61.19.194:8080/api/register?token=" + encodedToken, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password })
@@ -48,7 +49,8 @@ async function signup() {
     }
 
     try {
-        const res = await fetch("http://130.61.19.194:8080/api/register?token=" + token, {
+        const encodedToken = encodeURIComponent(token);
+        const res = await fetch("http://130.61.19.194:8080/api/register?token=" + encodedToken, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password })
