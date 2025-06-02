@@ -1,11 +1,13 @@
-document.getElementById("loginForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    await login();
-});
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await login();
+    });
 
-document.getElementById("submitForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    await signup();
+    document.getElementById("submitForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await signup();
+    });
 });
 
 async function login() {
@@ -14,18 +16,24 @@ async function login() {
     const token = grecaptcha.getResponse();
 
     if (!token) {
-        alert("Please complete the CAPTCHA");
+        alert("Bitte CAPTCHA ausfüllen");
         return;
     }
 
-    const res = await fetch("/login?token=" + token, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password })
-    });
+    try {
+        const res = await fetch("/login?token=" + token, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        });
 
-    const text = await res.text();
-    alert("Login result: " + text);
+        const text = await res.text();
+        alert("Login-Ergebnis: " + text);
+    } catch (error) {
+        console.error("Fehler beim Login:", error);
+        alert("Fehler beim Login");
+    }
+
     grecaptcha.reset();
 }
 
@@ -35,17 +43,23 @@ async function signup() {
     const token = grecaptcha.getResponse();
 
     if (!token) {
-        alert("Please complete the CAPTCHA");
+        alert("Bitte CAPTCHA ausfüllen");
         return;
     }
 
-    const res = await fetch("/register?token=" + token, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password })
-    });
+    try {
+        const res = await fetch("/register?token=" + token, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        });
 
-    const text = await res.text();
-    alert("Signup result: " + text);
+        const text = await res.text();
+        alert("Registrierungsergebnis: " + text);
+    } catch (error) {
+        console.error("Fehler bei der Registrierung:", error);
+        alert("Fehler bei der Registrierung");
+    }
+
     grecaptcha.reset();
 }
