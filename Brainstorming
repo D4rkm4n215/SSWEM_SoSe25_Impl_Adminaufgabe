@@ -1,8 +1,0 @@
-Impl Aufgabe 1
-Sinvolle Passwortvorgaben: Groß und Kleinschreibung Sonderzeichen Zahlen mind. 8 Zeichen 
-haveibeenpawned API, kostenlos ohne APIkey abrufbar https://haveibeenpwned.com/API/v3#PwnedPasswords
-Brute-Force: reCaptcha von Google einbinden https://developers.google.com/recaptcha/docs/v3?hl=de#placement_on_your_website
-Passwörter sicher abspeichern: Hashen mit Salt und Pepper möglich. Wo speichern wir den Pepper ab ?
-
-Admin Aufgabe 2
-Durch pgcrypto kann man Spalten verschlüsseln https://www.postgresql.org/docs/current/pgcrypto.html
