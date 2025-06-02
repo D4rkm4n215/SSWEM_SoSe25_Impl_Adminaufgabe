@@ -1,14 +1,9 @@
-# Verwende ein offizielles OpenJDK 17 Image als Basis
-FROM eclipse-temurin:17-jdk-alpine
+FROM eclipse-temurin:17-jdk
 
-# Setze das Arbeitsverzeichnis im Container
 WORKDIR /app
 
-# Kopiere das JAR-File in das Arbeitsverzeichnis
 COPY target/backend-0.0.1-SNAPSHOT.jar app.jar
 
-# Exponiere den Port 8080
 EXPOSE 8080
 
-# Definiere den Befehl zum Starten der Anwendung
 ENTRYPOINT ["java", "-jar", "app.jar"]
