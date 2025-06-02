@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <title>Login/Registration</title>
+</head>
+
+<body>
+    <div class="login-page">
+        <form id="loginForm" action="" class="login-form">
+            <h2>Login</h2>
+            <div class="input-box">
+                <input type="text" id="login_username" placeholder="Username" required>
+            </div>
+            <div class="input-box">
+                <input type="password" id="login_password" placeholder="password" required>
+            </div>
+            <button onclick="login()">Login</button>
+    
+            <p class="message">Don't have an account? <a href="#">Register now</a></p>
+        </form>
+    
+        <form id="submitForm" action="#" class="registration-form">
+            <h2>New Registration</h2>
+            <div class="input-box">
+                <input type="text" id="submit_username" placeholder="Username" required>
+            </div>
+            <div class="input-box">
+                <input type="password" id="submit_password" placeholder="password" required>
+            </div>
+            <button onclick="signup()">Register</button>
+    
+            <p class="message">Already have account? <a href="#">Sign in</a></p>
+        </form>
+    </div>
+    <script src="js/main.js"></script>
+    
+</body>
+
+</html>
