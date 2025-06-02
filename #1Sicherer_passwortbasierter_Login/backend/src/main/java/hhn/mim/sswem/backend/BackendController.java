@@ -1,10 +1,8 @@
 package hhn.mim.sswem.backend;
 
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -17,6 +15,8 @@ import java.util.Scanner;
 public class BackendController {
 
     private static final String CSV_PATH = "users.csv";
+    @Autowired
+    private RecaptchaService recaptchaService;
 
     @PostMapping("/register")
     public String register(@RequestBody User user) throws Exception {
@@ -41,7 +41,10 @@ public class BackendController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody User user) throws Exception {
+    public String login(@RequestBody User user ,@RequestParam String token) throws Exception {
+        if (!recaptchaService.verify(token)) {
+            return "recaptcha_failed";
+        }
         String username = user.getUsername();
         String password = user.getPassword();
         String passwordHash = hashPassword(password);
