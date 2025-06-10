@@ -107,8 +107,13 @@ Andernfalls wird eine entsprechende Fehlermeldung zurückgegeben.
 ```
 Sicherer_passwortbasierter_Login/
 ├── Backend
-├── css
-├── js
-├── index.html
-└── register.html
+   ├──src
+   ├──pom.xml
+   ├──users.csv
+├── frontend
+   ├── css
+   ├── js
+   ├── index.html
+   └── register.html
+├── README.md
 ```
