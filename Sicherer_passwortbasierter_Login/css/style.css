@@ -1,86 +1,166 @@
-/* 
-body background: rgb(205, 117, 10);
-login page box-shadow: 0 0 20px rgb(0, 0, 0, 0.2), 
-        0 5px 5px 0 rgb(0, 0, 0, 0.24) ;
-login page background: #ffff;
-input box background: #f2f2f2;
+/* main.css */
 
-button background: rgb(205, 89, 7);
-message color #b3b3b3;
-message a tag color #ef7036;
-
- */
-
-*{
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-body{
+
+html, body {
     height: 100%;
-    background: rgb(205, 117, 10);
+    background: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.login-page{
-    width: 350px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    padding: 40px;
-    box-shadow: 0 0 20px rgb(0, 0, 0, 0.2), 
-    0 5px 5px 0 rgb(0, 0, 0, 0.24) ;
-    background: #ffff;
-}
-
-.login-page h2{
+.login-form {
+    background: #ffffff;
+    padding: 2.5rem 3rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    width: 320px;
     text-align: center;
-    margin-bottom: 30px;
+    transition: box-shadow 0.3s ease;
 }
 
-.input-box{
-    margin-bottom: 10px;
+.login-form:hover {
+    box-shadow: 0 12px 36px rgba(0,0,0,0.15);
 }
 
-.input-box input{
+.login-form h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-weight: 700;
+}
+
+.login-form input {
     width: 100%;
-    font-size: 16px;
-    padding: 15px;
-    border: 0;
-    background: #f2f2f2;
+    padding: 12px 15px;
+    margin-bottom: 1.2rem;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.login-form input:focus {
     outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px #4a90e2;
 }
 
-.login-page button{
+.login-form button {
     width: 100%;
-    font-size: 16px;
-    padding: 15px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    background: rgb(205, 89, 7);
-    border: 0;
-    color: #ffff;
-    text-transform: uppercase;
-    transition: all ease .5s;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    background: #4a90e2;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
     cursor: pointer;
-    margin-bottom: 10px;
+    transition: background 0.3s ease;
 }
 
-.login-page button:hover{
-    background: rgb(205, 89, 7,.8);
+.login-form button:hover {
+    background: #357ABD;
 }
 
-.login-page p{
-    color: #b3b3b3;
-    font-size: 12px;
+.login-form .message {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #666;
 }
 
-.login-page p a{
+.login-form .message a {
+    color: #4a90e2;
     text-decoration: none;
-    color: #ef7036;
+    font-weight: 600;
 }
 
-.registration-form{
-    display: none;
+.login-form .message a:hover {
+    text-decoration: underline;
+}
+
+.registration-form {
+    background: #ffffff;
+    padding: 2.5rem 3rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    width: 320px;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+}
+
+.registration-form:hover {
+    box-shadow: 0 12px 36px rgba(0,0,0,0.15);
+}
+
+.registration-form h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-weight: 700;
+}
+
+.registration-form input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 1.2rem;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.registration-form input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px #4a90e2;
+}
+
+.registration-form button {
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    background: #4a90e2;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.registration-form button:hover {
+    background: #357ABD;
+}
+
+.registration-form .message {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.registration-form .message a {
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.registration-form .message a:hover {
+    text-decoration: underline;
+}
+
+/* reCAPTCHA zentrieren und kleiner machen */
+.g-recaptcha {
+    margin: 1rem auto 0 auto;
+    display: block;
+}
+
+/* Optional: reCAPTCHA compact */
+.g-recaptcha[data-size="compact"] {
+    transform: scale(0.9);
+    transform-origin: 0 0;
 }

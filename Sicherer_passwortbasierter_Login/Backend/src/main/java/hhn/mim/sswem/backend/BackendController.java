@@ -19,7 +19,11 @@ public class BackendController {
     private RecaptchaService recaptchaService;
 
     @PostMapping("/register")
-    public String register(@RequestBody User user) throws Exception {
+    public String register(@RequestBody User user, @RequestParam String token) throws Exception {
+        if (!recaptchaService.verify(token)) {
+            return "recaptcha_failed";
+        }
+
         String username = user.getUsername();
         String password = user.getPassword();
 
@@ -27,6 +31,7 @@ public class BackendController {
         if (validationError != null) {
             return validationError;
         }
+
         if (isPasswordPwned(password)) {
             return "password_pwned";
         }
