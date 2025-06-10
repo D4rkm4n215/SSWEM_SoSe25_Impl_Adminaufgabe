@@ -1,0 +1,11 @@
+services:
+  sswembackend:
+    image: sswembackend
+    build: .
+    environment:
+      - VIRTUAL_HOST=d4rkm4n.de
+      - LETSENCRYPT_HOST=d4rkm4n.de
+      - LETSENCRYPT_EMAIL=info@d4rkm4n.de
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
