@@ -71,7 +71,7 @@ cd /etc/ssl/certs
 sudo openssl req -new -x509 -days 365 -nodes \
   -out postgresql.crt \
   -keyout /etc/ssl/private/postgresql.key \
-  -subj "/CN=your-db-server"
+  -subj "/CN=49b35310-a163-44b6-a3ae-6fe162313330.ma.bw-cloud-instance.org"
 ```
 Der erstellte private Key wird so verändert, dass er nur vom Benutzer bearbeiter und gelesen werden kann. Danach wird der Key und das Zertifikat dem Benutzer `postgres` zugeordnet. 
 ```bash
