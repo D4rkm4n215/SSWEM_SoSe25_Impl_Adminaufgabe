@@ -14,7 +14,7 @@ Diese Anleitung erklärt, wie man:
 
 ### Windows
 
-1. Lade den Installer herunter: [https://www.pgadmin.org/download/pgadmin-4-windows/](https://www.pgadmin.org/download/pgadmin-4-windows/)
+1. Lade den Installer der neuesten Version (Es wurde unter Version 4.9 getestet) herunter: [https://www.pgadmin.org/download/pgadmin-4-windows/](https://www.pgadmin.org/download/pgadmin-4-windows/)
 2. Starte den Installer und folge den Schritten.
 3. Öffne pgAdmin über das Startmenü.
 
@@ -82,6 +82,7 @@ sudo chown postgres:postgres /etc/ssl/private/postgresql.key /etc/ssl/certs/post
 ### PostgreSQL wurde auf localhost (für den SSH-Tunnel) und nur auf SSL Verbindungen beschränkt:
 
 `postgresql.conf` wurde bearbeitet:
+ALTER USER postgres PASSWORD 'your_secure_password';
 
 ```bash
 sudo nano /etc/postgresql/16/main/postgresql.conf
@@ -149,14 +150,14 @@ Diese SSH-Sitzung muss im Hintergrund geöffnet bleiben, während pgAdmin verwen
 ## 🔌 4. Verbindung zur PostgreSQL über pgAdmin
 
 1. Öffne pgAdmin.
-2. Rechtsklick auf "Servers" → "Create" → "Server..."
+2. Rechtsklick auf "Servers" → "Register" → "Server..."
 3. Unter **General**:
    - Name: `SSWEM`
 4. Unter **Connection**:
    - Host: `localhost`
    - Port: `5432`
    - Username: `postgres`
-   - Password: `74qjGQNdr0b0w1EWEp&Z3ioOVecUskNA^$ZJxWU^BIU#qh@T@QwOhjtQk#l0eQ&M`
+   - Password: 74qjGQNdr0b0w1EWEp&Z3ioOVecUskNA^$ZJxWU^BIU#qh@T@QwOhjtQk#l0eQ&M
 5. Unter **Parameters**:
    - SSL_Mode: `require`
 6. **Save** klicken.
@@ -168,12 +169,18 @@ Es existiert eien Tabelle `users` in der Datenbank `sampledb`. Die Tabelle hat d
 
 ### Schritt 1: Benutzer mit verschlüsseltem Passwort einfügen
 
+1. Navigiere zu und klicke auf `sampledb`
+ ```
+   Servers → SSWEM → Databases → sampledb
+```
+2. Öffne das Query Tool entwerden mit `Alt+Shift+Q` oder klicke in der Leiste neben `Project Explorer` auf den ersten Button. 
+3. Gib im Query Tool folgenden Code ein:
 ```sql
 INSERT INTO users (name, email, passwords)
 VALUES (
-    'Alice',
-    'alice@example.com',
-    crypt('MeinSicheresPasswort123!', gen_salt('bf'))
+    'Max',
+    'max@example.com',
+    crypt('SuperSavePassword123!', gen_salt('bf'))
 );
 ```
 
@@ -181,11 +188,11 @@ VALUES (
 - `gen_salt('bf')` erzeugt einen **Blowfish (bcrypt)** Salt
 
 ### Schritt 2: Passwortüberprüfung (Login-Prüfung)
-
+Wenn beispeilweise bei einem Login das Passwort überprüft werden soll, dann kann dies in der Datenbankabfrage durchgeführt werden, indem der Hash über das eingegebene Passwort verglichen wird und mit dem abgespeicherten Hash verglichen wird. 
 ```sql
 SELECT * FROM users
-WHERE email = 'alice@example.com'
-  AND passwords = crypt('MeinSicheresPasswort123!', passwords);
+WHERE email = 'max@example.com'
+  AND passwords = crypt('SuperSavePassword123!', passwords);
 ```
 
 ---
