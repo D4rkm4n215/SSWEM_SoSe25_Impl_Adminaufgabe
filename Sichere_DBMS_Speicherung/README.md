@@ -73,7 +73,8 @@ sudo openssl req -new -x509 -days 365 -nodes \
   -keyout /etc/ssl/private/postgresql.key \
   -subj "/CN=49b35310-a163-44b6-a3ae-6fe162313330.ma.bw-cloud-instance.org"
 ```
-Der erstellte private Key wird so verändert, dass er nur vom Benutzer bearbeiter und gelesen werden kann. Danach wird der Key und das Zertifikat dem Benutzer `postgres` zugeordnet. 
+Der erstellte private Key wird so verändert, dass er nur vom Benutzer bearbeiter und gelesen werden kann. Danach wird der Key und das Zertifikat dem Benutzer `postgres` zugeordnet.
+
 ```bash
 sudo chmod 600 /etc/ssl/private/postgresql.key
 sudo chown postgres:postgres /etc/ssl/private/postgresql.key /etc/ssl/certs/postgresql.crt
@@ -82,7 +83,6 @@ sudo chown postgres:postgres /etc/ssl/private/postgresql.key /etc/ssl/certs/post
 ### PostgreSQL wurde auf localhost (für den SSH-Tunnel) und nur auf SSL Verbindungen beschränkt:
 
 `postgresql.conf` wurde bearbeitet:
-ALTER USER postgres PASSWORD 'your_secure_password';
 
 ```bash
 sudo nano /etc/postgresql/16/main/postgresql.conf
