@@ -100,7 +100,7 @@ Andernfalls wird eine entsprechende Fehlermeldung zurückgegeben.
 
 4. Nach erfolgreicher Registrierung ist der Login mit dem neuen Benutzer möglich
 
-5. Passwörter werden SHA-256-gehasht in users.csv gespeichert
+5. Passwörter werden mittels Argon2 in der users.json gespeichert
 
 ## 📁 Verzeichnisstruktur (Kurzüberblick)
 
