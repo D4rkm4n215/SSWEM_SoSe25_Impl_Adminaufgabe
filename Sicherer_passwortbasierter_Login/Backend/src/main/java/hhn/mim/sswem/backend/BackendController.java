@@ -1,22 +1,30 @@
 package hhn.mim.sswem.backend;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 @RestController
 @RequestMapping("/api")
 public class BackendController {
 
-    private static final String CSV_PATH = "users.csv";
+    private static final String USERS_FILE = "users.json";
+
     @Autowired
     private RecaptchaService recaptchaService;
+
+    Argon2PasswordEncoder arg2SpringSecurity = new Argon2PasswordEncoder(16, 32, 1, 60000, 10);
 
     @PostMapping("/register")
     public String register(@RequestBody User user, @RequestParam String token) throws Exception {
@@ -38,51 +46,42 @@ public class BackendController {
 
         String passwordHash = hashPassword(password);
 
-        FileWriter writer = new FileWriter("users.csv", true);
-        writer.append(username).append(",").append(passwordHash).append("\n");
-        writer.close();
+        user.setPassword(passwordHash);
 
+        saveUserToJson(user);
         return "success";
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody User user ,@RequestParam String token) throws Exception {
+    public String login(@RequestBody User user, @RequestParam String token) throws Exception {
         if (!recaptchaService.verify(token)) {
             return "recaptcha_failed";
         }
+
         String username = user.getUsername();
         String password = user.getPassword();
-        String passwordHash = hashPassword(password);
 
-        File csvFile = new File("users.csv");
-        if (!csvFile.exists()) return "invalid";
+        File jsonFile = new File("users.json");
+        if (!jsonFile.exists()) return "invalid";
 
-        Scanner scanner = new Scanner(csvFile);
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            String[] parts = line.split(",", -1);
-            if (parts.length == 2) {
-                String storedUsername = parts[0];
-                String storedPasswordHash = parts[1];
-                if (storedUsername.equals(username) &&
-                        storedPasswordHash.equals(passwordHash)) {
-                    scanner.close();
+        ObjectMapper objectMapper = new ObjectMapper();
+        User[] users = objectMapper.readValue(jsonFile, User[].class);
+
+        for (User storedUser : users) {
+            if (storedUser.getUsername().equals(username)) {
+                if (arg2SpringSecurity.matches(password, storedUser.getPassword())) {
                     return "success";
+                } else {
+                    return "invalid";
                 }
             }
         }
-        scanner.close();
+
         return "invalid";
     }
 
     private String hashPassword(String password) throws Exception {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] hashBytes = digest.digest(password.getBytes("UTF-8"));
-        StringBuilder sb = new StringBuilder();
-        for (byte b : hashBytes) {
-            sb.append(String.format("%02x", b));
-        }
-        return sb.toString();
+        return arg2SpringSecurity.encode(password);
     }
 
     private String validatePassword(String pwd) {
@@ -119,5 +118,22 @@ public class BackendController {
             }
         }
         return false;
+    }
+
+    private void saveUserToJson(User user) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        List<User> users = new ArrayList<>();
+        File file = new File(USERS_FILE);
+
+        if (file.exists()) {
+            users = new ArrayList<>(Arrays.asList(
+                    objectMapper.readValue(file, User[].class)
+            ));
+        }
+
+        users.add(user);
+
+        objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, users);
     }
 }

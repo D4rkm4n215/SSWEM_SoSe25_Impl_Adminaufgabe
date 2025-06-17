@@ -1,0 +1,4 @@
+[ {
+  "username" : "hallo",
+  "password" : "$argon2id$v=19$m=60000,t=10,p=1$tAGhzTId4yeK5pFqVCdAZg$2t/2DaNTErX6uQzrhxcrJH+b+nJqqE36e8F4JVHT9kA"
+} ]
