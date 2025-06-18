@@ -12,7 +12,7 @@ Es ermöglicht Benutzern, sich zu registrieren und anschließend über einen pas
 - **Endpoints**:
   - `POST /register` – Benutzerregistrierung
   - `POST /login` – Benutzeranmeldung
-- **Benutzerdaten** werden in der Datei `users.csv` gespeichert.
+- **Benutzerdaten** werden in der Datei `users.json` gespeichert.
 - **Passwörter** werden vor dem Speichern per **Argon2** gehasht.
 - Es wird ein **Google reCAPTCHA v2** (Checkbox) verwendet, um Brute-Force-Angriffe zu verhindern.
 
